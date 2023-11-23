@@ -97,6 +97,7 @@ namespace MMABooksDBClasses
         public static bool DeleteCustomer(Customer customer)
         {
             // get a connection to the database
+            MySqlConnection connection = MMABooksDB.GetConnection();
             string deleteStatement =
                 "DELETE FROM Customers " +
                 "WHERE CustomerID = @CustomerID " +
@@ -106,20 +107,25 @@ namespace MMABooksDBClasses
                 "AND State = @State " +
                 "AND ZipCode = @ZipCode";
             // set up the command object
+            MySqlCommand deleteCommand =
+                new MySqlCommand(deleteStatement, connection);
 
             try
             {
                 // open the connection
+                connection.Open();
                 // execute the command
+                deleteCommand.ExecuteNonQuery();
                 // if the number of records returned = 1, return true otherwise return false
             }
             catch (MySqlException ex)
             {
                 // throw the exception
+                throw ex;
             }
             finally
             {
-                // close the connection
+                connection.Close();
             }
 
             return false;
@@ -128,6 +134,7 @@ namespace MMABooksDBClasses
         public static bool UpdateCustomer(Customer oldCustomer,
             Customer newCustomer)
         {
+            MySqlConnection connection = MMABooksDB.GetConnection();
             // create a connection
             string updateStatement =
                 "UPDATE Customers SET " +
@@ -143,19 +150,33 @@ namespace MMABooksDBClasses
                 "AND State = @OldState " +
                 "AND ZipCode = @OldZipCode";
             // setup the command object
+            MySqlCommand updateCommand =
+                new MySqlCommand(updateStatement, connection);
             try
             {
                 // open the connection
+                connection.Open();
                 // execute the command
+                MySqlCommand
                 // if the number of records returned = 1, return true otherwise return false
+                if ()
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (MySqlException ex)
             {
                 // throw the exception
+                throw ex;
             }
             finally
             {
                 // close the connection
+                connection.Close();
             }
 
             return false;

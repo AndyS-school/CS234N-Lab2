@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.Design;
 
 namespace MMABooksBusinessClasses
 {
@@ -18,17 +19,76 @@ namespace MMABooksBusinessClasses
             ZipCode = zipcode;
         }
 
-        public int CustomerID { get; set; }
+        //instance variables
+        private int customerID;
+        private string name;
+        private string address;
+        private string city;
+        private string state;
+        private string zipcode;
 
-        public string Name { get; set; }
 
-        public string Address { get; set; }
+        public int CustomerID {
+            get {  return customerID; }
 
-        public string City { get; set; }
+            set {
+                if (value > 0)
+                    customerID = value;
+                else
+                    throw new ArgumentOutOfRangeException("Customer ID must be a possitive intager.");
+            }
+        }
 
-        public string State { get; set; }
+        public string Name {
+            get { return name; }
+            set {
+                if (value.Trim().Length > 0 && value.Trim().Length <= 100)
+                    name = value;
+                else throw new ArgumentOutOfRangeException("Name must be 1 to 100 characters long.");
+            }
+        }
 
-        public string ZipCode { get; set; }
+        public string Address
+        {
+            get { return address; }
+            set
+            {
+                if (value.Trim().Length > 0 && value.Trim().Length <= 50)
+                    address = value;
+                else throw new ArgumentOutOfRangeException("Address must be 1 to 50 characters long.");
+            }
+        }
+
+        public string City {
+            get { return city; }
+            set
+            {
+                if (value.Trim().Length > 0 && value.Trim().Length <= 20)
+                    city = value;
+                else throw new ArgumentOutOfRangeException("Address must be 1 to 20 characters long.");
+            }
+        }
+
+        //I did not bother rewriting the trim because the codes should have no spaces anyway
+        public string State {
+            get { return state; }
+            set
+            {
+                if (value.Length != 2)
+                    state = value;
+                else throw new ArgumentOutOfRangeException("State Code should be 2 characters long.");
+            }
+        }
+
+        public string ZipCode {
+            get { return zipcode; }
+            set
+            {
+                if (value.Length != 5)
+                    zipcode = value;
+                else throw new ArgumentOutOfRangeException("Zip Code should be 15 characters long.");
+            }
+        }
 
         public override string ToString()
         {
